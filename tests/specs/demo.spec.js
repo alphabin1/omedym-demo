@@ -2,6 +2,7 @@ require("dotenv").config();
 const BrowserFactory = require("../drivers/BrowserFactory");
 const addContext = require("mochawesome/addContext");
 const AllPages = require('../pages/AllPages');
+const FileUtil = require("../utils/FileUtils");
 
 describe("Edit profile settings scenario", function () {
   let allPages;
@@ -23,9 +24,20 @@ describe("Edit profile settings scenario", function () {
   });
 
   describe("Verify user should be able to edit the profile settings succesfully", function () {
+    const cwd = FileUtil.getCurrentDirectory()
+    const title = 'QA Automation Engineer'
+    const fname = "Sagar"
+    const lname = 'K'
+    const linkedInUrl = 'in.linkedin.com/company/alphabin'
 
     it("verify user should be able to navigate to the profile settings", async function () {
       await allPages.dashboardPage.navigateToUserProfileSettings();
+    });
+
+    it('Verify user should be able to edit Profile picture, LinkedIn Url and Title', async function () {
+      await allPages.editProfilePage.clickOnEditUserPencilButton()
+      await allPages.editProfilePage.updateProfileSettings(`${cwd}/file/profile.png`, fname, lname, title, linkedInUrl)
+      await this.browser.delay(5000)
     });
   });
 
