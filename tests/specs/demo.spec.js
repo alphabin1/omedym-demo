@@ -22,6 +22,13 @@ describe("Edit profile settings scenario", function () {
     });
   });
 
+  describe("Verify user should be able to edit the profile settings succesfully", function () {
+
+    it("verify user should be able to navigate to the profile settings", async function () {
+      await allPages.dashboardPage.navigateToUserProfileSettings();
+    });
+  });
+
   afterEach(async function () {
     if (this.currentTest.state == "failed") {
       const screenshot = await this.browser.captureScreenshot();

@@ -1,4 +1,5 @@
 const LoginPage = require('./LoginPage');
+const DashboardPage = require('./DashboardPage');
 
 class AllPages {
   /**
@@ -7,6 +8,7 @@ class AllPages {
    */
   constructor(browser) {
     this.loginpage = new LoginPage(browser);
+    this.dashboardPage = new DashboardPage(browser);
   }
 }
 
