@@ -39,6 +39,10 @@ describe("Edit profile settings scenario", function () {
       await allPages.editProfilePage.updateProfileSettings(`${cwd}/file/profile.png`, fname, lname, title, linkedInUrl)
       await this.browser.delay(5000)
     });
+
+    it('Verify updated settings should be displayed successfully', async function () {
+      await allPages.editProfilePage.verifyUpdatedSettings(linkedInUrl, title)
+    });
   });
 
   afterEach(async function () {

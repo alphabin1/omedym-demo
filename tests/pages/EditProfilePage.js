@@ -118,6 +118,52 @@ class EditProfilePage extends BasePage {
     await this.getLinkedInProfileInput().fastType(linkedInUrl)
     await this.getSaveButton().click()
   }
+
+  /**
+   * Verifies uploaded picture is visible on the user profile page.
+   * @returns {Promise<void>}
+   */
+  async verifyUploadedPictureIsVisible() {
+    const picture = await new TextView(this.browser, SelectorType.CSS, '[class="ant-upload-list-item-image"]').isAvailableAndDisplayed()
+    expect(picture).to.be.true
+  }
+
+  /**
+   * Retrieves and returns the value of the LinkedIn URL from the user's profile settings.
+   * @returns {Promise<string>} - The LinkedIn URL.
+   */
+  async getValueOfLinkedInUrl() {
+    const editLinkedInProfile = await this.browser.getValue(SelectorType.CSS, '[name="userLinkedin"]')
+    console.log(editLinkedInProfile)
+    return editLinkedInProfile
+  }
+
+  /**
+   * Retrieves and returns the value of the user's title from the user's profile settings.
+   * @returns {Promise<string>} - The user's title.
+   */
+  async getValueOfTitle() {
+    const editedTitle = await this.browser.getValue(SelectorType.CSS, '[name="title"]')
+    console.log(editedTitle);
+    return editedTitle
+  }
+
+  /**
+   * Verifies that user profile settings have been updated correctly.
+   * @param {string} linkedInUrl - The expected LinkedIn URL after the update.
+   * @param {string} title - The expected title after the update.
+   * @returns {Promise<void>}
+   */
+  async verifyUpdatedSettings(linkedInUrl, title) {
+    await this.clickOnEditUserPencilButton()
+    await this.verifyUploadedPictureIsVisible()
+
+    const editedLinkedInProfie = await this.getValueOfLinkedInUrl()
+    expect(editedLinkedInProfie).to.equal(linkedInUrl)
+
+    const editedTitle = await this.getValueOfTitle()
+    expect(editedTitle).to.eq(title)
+  }
 }
 
 module.exports = EditProfilePage;
