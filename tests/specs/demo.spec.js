@@ -1,6 +1,7 @@
 require("dotenv").config();
 const BrowserFactory = require("../drivers/BrowserFactory");
 const addContext = require("mochawesome/addContext");
+const AllPages = require('../pages/AllPages');
 
 describe("Edit profile settings scenario", function () {
   let allPages;
@@ -8,6 +9,17 @@ describe("Edit profile settings scenario", function () {
   before("Open Browser", async function () {
     this.browser = await BrowserFactory.createBrowser(this);
     allPages = await new AllPages(this.browser);
+  });
+
+  describe("Verify login to the Omedym site", function () {
+
+    it("Verify user should be able to login successfully", async function () {
+      // Login Page
+      await allPages.loginpage.navigateToOmedymLogin();
+      const [email, password] = this.browser.getLoginCredentials();
+
+      await allPages.loginpage.fillLoginForm(email, password);
+    });
   });
 
   afterEach(async function () {
