@@ -1,0 +1,8 @@
+{
+  "browser": "chrome",
+  "isHeadless": false,
+  "defaultElementTimeout": 30000,
+  "defaultPageLoadTimeout": 60000,
+  "defaultTestTimeout": 300000,
+  "demoSiteUrl": "https://omedym-assess-qa.omedym.com/login"
+}
